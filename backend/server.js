@@ -11,7 +11,7 @@ import notificationRoutes from "./routes/notification.route.js";
 
 import connectMongoDB from "./db/connectMongoDB.js";
 
-dotenv.config();
+dotenv.config({path: './backend/.env'});
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -23,7 +23,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
-app.use(express.json({ limit: "5mb" })); // to parse req.body
+app.use(express.json({ limit: "10mb" })); // to parse req.body
 // limit shouldn't be too high to prevent DOS
 app.use(express.urlencoded({ extended: true })); // to parse form data(urlencoded)
 
@@ -35,11 +35,12 @@ app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  const frontendPath = path.resolve(__dirname, "../frontend/dist");
+  app.use(express.static(frontendPath));
 
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-	});
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
 }
 
 app.listen(PORT, () => {
