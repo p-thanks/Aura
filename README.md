@@ -1,7 +1,7 @@
-# MERN Stack Project: Build and Deploy a X Clone From Scratch | JWT, Socket.io
+# MERN Stack Project: Build and Deploy an Aura From Scratch | JWT, Socket.io
 
 
-Demo Preview : X Clone(https://x-clone-xuxq.onrender.com)
+Demo Preview : Aura()
 
 
 Some Features:
